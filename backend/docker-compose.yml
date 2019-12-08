@@ -1,0 +1,29 @@
+version: '3.3'
+volumes: 
+  data:
+services:
+  postgres:
+    image: postgres:11.1-alpine
+    restart: always
+    container_name: myclinic-postgres
+    working_dir: /application
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=myclinic
+    ports:
+      - '5432:5432'
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: example
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'    
