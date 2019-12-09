@@ -21,6 +21,9 @@ routes.post('/files', upload.single('file'), FileController.store);
 
 routes.put('/users', UserController.update);
 
-routes.post('/users', DoctorController.store);
+routes.post('/doctors', DoctorController.store);
+routes.get('/doctors', DoctorController.index);
+routes.put('/doctors/:id', DoctorController.update);
+routes.delete('/doctors/:id', DoctorController.delete);
 
 export default routes;
