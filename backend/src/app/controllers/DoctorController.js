@@ -54,6 +54,7 @@ class DoctorController {
         .status(401)
         .json({ error: 'Somente administradores podem criar novos Doutores' });
     }
+
     const userExists = await User.findOne({ where: { email: req.body.email } });
     if (userExists) {
       return res
@@ -96,6 +97,10 @@ class DoctorController {
 
     const { email, oldPassword } = req.body;
     const oldDoctor = await User.findOne({ where: { id: req.params.id } });
+    if (!oldDoctor) {
+      return res.status(404).json({ error: 'Este usuario não existe' });
+    }
+
     if (email !== oldDoctor.email) {
       const userExists = await User.findOne({ where: { email } });
       if (userExists) {
