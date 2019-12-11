@@ -1,5 +1,5 @@
 version: '3.3'
-volumes: 
+volumes:
   data:
 services:
   postgres:
@@ -25,5 +25,6 @@ services:
     #   MONGO_INITDB_ROOT_PASSWORD: example
   redis:
     image: redis:alpine
+    restart: always
     ports:
-      - '6379:6379'    
+      - '6379:6379'

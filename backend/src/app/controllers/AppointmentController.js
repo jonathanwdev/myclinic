@@ -1,10 +1,13 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore, format } from 'date-fns';
+import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Appointment from '../models/Appointment';
 import User from '../models/User';
 import File from '../models/File';
 import Notification from '../schemas/Notification';
+
+import CancellationMail from '../jobs/CancellationMail';
+import Queue from '../../lib/Queue';
 
 class AppointmentController {
   async index(req, res) {
@@ -103,6 +106,46 @@ class AppointmentController {
     await Notification.create({
       content: `Novo consulta agendada por ${user.name} para o dia ${formattedDate}`,
       user: doctor_id,
+    });
+
+    return res.json(appointment);
+  }
+
+  async delete(req, res) {
+    const appointment = await Appointment.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'doctor',
+          attributes: ['name', 'email'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name', 'email'],
+        },
+      ],
+    });
+    if (appointment.user_id !== req.userId) {
+      return res.status(401).json({
+        error: 'Você não tem permissão para cancelar este agendamento',
+      });
+    }
+
+    const dateWithSub = subHours(appointment.date, 2);
+    if (isBefore(dateWithSub, new Date())) {
+      return res.status(401).json({
+        error: 'Você só pode cancelar agendamentos 2 horas antes do mesmo',
+      });
+    }
+    if (appointment.canceled_at) {
+      return res.status(404).json({ error: 'Este agendamento não existe' });
+    }
+    appointment.canceled_at = new Date();
+    await appointment.save();
+
+    await Queue.add(CancellationMail.Key, {
+      appointment,
     });
 
     return res.json(appointment);
