@@ -3,12 +3,12 @@ import User from '../models/User';
 
 class NotificationController {
   async index(req, res) {
-    const checkIsDoctor = await User.findOne({
-      where: { id: req.userId, doctor: true },
+    const checkUser = await User.findOne({
+      where: { id: req.userId },
     });
-    if (!checkIsDoctor) {
+    if (!checkUser) {
       return res.status(401).json({
-        error: 'Somente administradores leem esse tipo de notificação',
+        error: 'Somente usuarios credenciados tem acesso a notificações',
       });
     }
 

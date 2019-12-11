@@ -6,6 +6,7 @@ import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
 import FileController from './app/controllers/FileController';
 import DoctorController from './app/controllers/DoctorController';
+import AvailableController from './app/controllers/AvailableController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationController from './app/controllers/NotificationController';
@@ -21,6 +22,7 @@ routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 
 routes.post('/files', upload.single('file'), FileController.store);
+routes.post('/files/:id', FileController.delete);
 
 routes.put('/users', UserController.update);
 
@@ -29,11 +31,14 @@ routes.get('/doctors', DoctorController.index);
 routes.put('/doctors/:id', DoctorController.update);
 routes.delete('/doctors/:id', DoctorController.delete);
 
+routes.get('/doctors/:id/available', AvailableController.index);
+
 routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
 routes.delete('/appointments/:id', AppointmentController.delete);
 
 routes.get('/schedule', ScheduleController.index);
+routes.delete('/schedule/:id', ScheduleController.delete);
 
 routes.get('/notifications', NotificationController.index);
 routes.put('/notifications/:id', NotificationController.update);

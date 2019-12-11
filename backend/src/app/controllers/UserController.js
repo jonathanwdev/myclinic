@@ -33,6 +33,8 @@ class UserController {
   }
 
   async update(req, res) {
+    const user = await User.findByPk(req.userId);
+
     const schema = Yup.object().shape({
       name: Yup.string(),
       email: Yup.string().email(),
@@ -45,6 +47,8 @@ class UserController {
       confirmPassword: Yup.string().when('password', (password, field) =>
         password ? field.required().oneOf([Yup.ref('password')]) : field
       ),
+      profession: user.doctor ? Yup.string().required() : '',
+      address: Yup.string(),
     });
     if (!(await schema.isValid(req.body))) {
       return res
@@ -53,7 +57,6 @@ class UserController {
     }
 
     const { email, oldPassword } = req.body;
-    const user = await User.findOne({ where: { id: req.userId } });
 
     if (email !== user.email) {
       const userExists = await User.findOne({ where: { email } });
@@ -66,9 +69,11 @@ class UserController {
     if (oldPassword && !(await user.checkPassword(oldPassword))) {
       return res.status(401).json({ error: 'Senha antiga incorreta' });
     }
-    const { id, name, doctor } = await user.update(req.body);
+    const { id, name, doctor, profession, address } = await user.update(
+      req.body
+    );
 
-    return res.json({ id, name, email, doctor });
+    return res.json({ id, name, email, doctor, profession, address });
   }
 }
 

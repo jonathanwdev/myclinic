@@ -77,17 +77,7 @@ class DoctorController {
         .email()
         .required(),
       address: Yup.string(),
-      avatar_id: Yup.number(),
       profession: Yup.string().required(),
-      oldPassword: Yup.string().min(6),
-      password: Yup.string()
-        .min(6)
-        .when('oldPassword', (oldPassword, field) =>
-          oldPassword ? field.required() : field
-        ),
-      confirmPassword: Yup.string().when('password', (password, field) =>
-        password ? field.required().oneOf([Yup.ref('password')]) : field
-      ),
     });
     if (!(await schema.isValid(req.body))) {
       return res
@@ -95,7 +85,7 @@ class DoctorController {
         .json({ error: 'Erro na validação, confira todos os campos' });
     }
 
-    const { email, oldPassword } = req.body;
+    const { email } = req.body;
     const oldDoctor = await User.findOne({ where: { id: req.params.id } });
     if (!oldDoctor) {
       return res.status(404).json({ error: 'Este usuario não existe' });
@@ -108,9 +98,6 @@ class DoctorController {
           .status(400)
           .json({ error: 'Email já cadastrado por outro usuario' });
       }
-    }
-    if (oldPassword && !(await oldDoctor.checkPassword(oldPassword))) {
-      return res.status(401).json({ error: 'Senha antiga incorreta' });
     }
 
     const { id, name, doctor, address, profession } = await oldDoctor.update(
