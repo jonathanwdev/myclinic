@@ -18,7 +18,7 @@
 
 <br>
 <p>
-  <img src="tmp/readme/1.png" width="315" />
-  <img src="tmp/readme/2.png" width="315" />
-  <img src="tmp/readme/3.png" width="315" />
+  <img src="tmp/1.png" width="315" />
+  <img src="tmp/2.png" width="315" />
+  <img src="tmp/3.png" width="315" />
 </p>

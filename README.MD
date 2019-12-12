@@ -3,9 +3,9 @@
 
 <i>Instructions</i>
 <ul>
-  <li>First step: inside backend folder, run : "Docker-compose up"  to create containers</li>
-  <li>Second step: inside backend folder,  run: " yarn sequelize db:migrate" to create the table in your database</li>
-  <li>Third step: inside backend folder run: "yarn sequelize seed:generate --name admin-user"<br>
+  <li>First step: inside api's folder, run : "Docker-compose up"  to create containers</li>
+  <li>Second step: inside api's folder,  run: " yarn sequelize db:migrate" to create the table in your database</li>
+  <li>Third step: inside api's folder run: "yarn sequelize seed:generate --name admin-user"<br>
   login: admin@admin.com  / pass: 123456
   </li>
   <li>Fourth:  " yarn dev " to start the back-end</li>
