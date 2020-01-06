@@ -30,12 +30,12 @@ export const Container = styled.div`
     a {
       display: block;
       width: 27rem;
-      height: 60px;
+      height: 5.4;
       background: #36cb4f;
       border-radius: 5px;
       color: #fff;
       font-size: 1.4rem;
-      line-height: 6rem;
+      line-height: 5.4rem;
       text-align: center;
       margin-top: 20px;
       transition: background 0.2s ease;
