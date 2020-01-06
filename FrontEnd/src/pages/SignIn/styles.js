@@ -60,5 +60,10 @@ export const ContentForm = styled.div`
         color: rgba(0, 0, 0, 0.8);
       }
     }
+    span {
+      color: #f64c75;
+      align-self: flex-start;
+      margin: 5px 0;
+    }
   }
 `;
