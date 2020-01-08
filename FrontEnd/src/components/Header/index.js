@@ -10,7 +10,7 @@ import Logo from '~/assets/Logo.svg';
 import { Container, Content } from './styles';
 
 export default function UnsignedHeader() {
-  const signed = useSelector(state => state.auth.signed);
+  const { signed } = useSelector(state => state.auth);
   return (
     <Container>
       <Content>

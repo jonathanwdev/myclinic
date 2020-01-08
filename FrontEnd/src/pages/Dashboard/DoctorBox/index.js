@@ -7,49 +7,44 @@ import Employees from './Employees';
 import { Container, VerticalNavigation, Option, ChangeButton } from './styles';
 
 export default function DoctorBox() {
-  const [selected, setSelected] = useState(<Dashboard />, 'dash');
-  const [active, setActive] = useState(false);
+  const options = [
+    {
+      component: <Dashboard />,
+      label: 'DASHBOARD',
+    },
+    {
+      component: <Employees />,
+      label: 'Cadastrar funcionários',
+    },
+    {
+      component: <Management />,
+      label: 'Gerenciar funcionários',
+    },
+  ];
+  const [activeOption, setActiveOption] = useState(options[0]);
 
-  function handleSelect(tag, value) {
-    setSelected('');
-    setActive(!active);
-    setSelected(tag);
+  function handleSelectOptions(option) {
+    setActiveOption(option);
   }
 
   return (
     <Container>
       <VerticalNavigation>
         <ul>
-          <Option>
-            <ChangeButton
-              type="button"
-              active={active}
-              onClick={() => handleSelect(<Dashboard />, 'dash')}
-            >
-              DASHBOARD
-            </ChangeButton>
-          </Option>
-          <Option>
-            <ChangeButton
-              type="button"
-              active={active}
-              onClick={() => handleSelect(<Employees />, 'empl')}
-            >
-              Cadastrar functionarios
-            </ChangeButton>
-          </Option>
-          <Option>
-            <ChangeButton
-              type="button"
-              active={active}
-              onClick={() => handleSelect(<Management />, 'mana')}
-            >
-              Gerenciar funcionarios
-            </ChangeButton>
-          </Option>
+          {options.map((option, index) => (
+            <Option key={index}>
+              <ChangeButton
+                type="button"
+                onClick={() => handleSelectOptions(option)}
+                active={option.label === activeOption.label}
+              >
+                {option.label}
+              </ChangeButton>
+            </Option>
+          ))}
         </ul>
       </VerticalNavigation>
-      <section>{selected}</section>
+      <section>{activeOption.component}</section>
     </Container>
   );
 }

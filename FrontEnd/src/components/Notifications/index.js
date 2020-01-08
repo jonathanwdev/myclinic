@@ -3,6 +3,7 @@ import { parseISO, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { IoIosNotifications, IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { toast } from 'react-toastify';
+
 import api from '~/services/api';
 
 import {
@@ -22,10 +23,6 @@ export default function Notifications() {
     () => !!notifications.find(notify => notify.read === false),
     [notifications]
   );
-
-  function handleToggleVisible() {
-    setVisible(!visible);
-  }
 
   useEffect(() => {
     async function loadNotifications() {
@@ -47,6 +44,10 @@ export default function Notifications() {
     }
     loadNotifications();
   }, []);
+
+  function handleToggleVisible() {
+    setVisible(!visible);
+  }
 
   async function handleRead(id) {
     await api.put(`/notifications/${id}`);

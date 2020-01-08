@@ -8,7 +8,7 @@ import { Container, Menu } from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.profile);
+  const { profile } = useSelector(state => state.user);
 
   function handleSingOu() {
     dispatch(signOut());
@@ -21,13 +21,15 @@ export default function Profile() {
 
         <Menu>
           <div>
-            <strong>{user.doctor ? `Dr(a). ${user.name}` : user.name}</strong>
+            <strong>
+              {profile.doctor ? `Dr(a). ${profile.name}` : profile.name}
+            </strong>
             <Link to="/profile">Meu Perfil</Link>
           </div>
           <img
             src={
-              user.avatar
-                ? user.avatar.url
+              profile.avatar
+                ? profile.avatar.url
                 : 'https://api.adorable.io/avatars/50/abott@adorable.png'
             }
             alt="profile"
