@@ -1,8 +1,11 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 import * as Yup from 'yup';
+import { signUpRequest } from '~/store/modules/auth/actions';
 
 import Logo from '~/assets/logoForm.svg';
 
@@ -28,8 +31,11 @@ const schema = Yup.object().shape({
 });
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+
   function handleSubmit(data) {
-    console.tron.log(data);
+    dispatch(signUpRequest(data));
   }
   return (
     <Container>
@@ -48,8 +54,10 @@ export default function SignUp() {
             name="confirmPassword"
             placeholder="Confirme sua senha"
           />
-          <button type="submit">Logar</button>
-          <Link to="/register"> Já tenho uma conta</Link>
+          <button type="submit">
+            {loading ? <AiOutlineLoading size={20} color="#fff" /> : 'Logar'}
+          </button>
+          <Link to="/login"> Já tenho uma conta</Link>
         </Form>
       </ContentForm>
     </Container>

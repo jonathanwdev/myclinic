@@ -1,5 +1,15 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
+
+const rotate = keyframes`
+  from{
+    transform:rotate(0deg);
+  }
+  to {
+    transform:rotate(360deg);
+
+  }
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -49,6 +59,10 @@ export const ContentForm = styled.div`
 
       &:hover {
         background: ${darken(0.04, '#36cb4f')};
+      }
+
+      svg {
+        animation: ${rotate} 2s linear infinite;
       }
     }
     a {

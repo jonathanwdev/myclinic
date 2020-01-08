@@ -98,14 +98,14 @@ class ScheduleController {
 
     const formattedDate = format(
       appointments.date,
-      "dd 'de' MMMM', às ' H:mm'h'",
+      "dd 'de' MMMM' às ' H:mm'h'",
       {
         locale: pt,
       }
     );
 
     await Notification.create({
-      content: `Seu agendamento com o(a) Dr(a) ${appointments.doctor.name} para o dia ${formattedDate} foi cancelado`,
+      content: `Seu agendamento com o(a) Dr(a) ${appointments.doctor.name}, para o dia ${formattedDate}, foi cancelado`,
       user: appointments.user_id,
     });
 

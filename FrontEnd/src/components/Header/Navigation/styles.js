@@ -1,23 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100%;
-  height: 55px;
-  background: transparent;
-  padding: 0 50px;
-`;
-
-export const Content = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #ccc;
-  height: 55px;
-  align-items: center;
-
-  img {
-    height: 40px;
-  }
-
   nav {
     display: flex;
 
