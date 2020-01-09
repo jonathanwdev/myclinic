@@ -3,6 +3,7 @@ import { parseISO, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { IoIosNotifications, IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 import api from '~/services/api';
 
@@ -25,9 +26,12 @@ export default function Notifications() {
   );
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
     async function loadNotifications() {
       try {
-        const response = await api.get('/notifications');
+        const response = await api.get('/notifications', {
+          cancelToken: source.token,
+        });
         const data = response.data.map(notify => ({
           ...notify,
           timeDistance: formatDistance(parseISO(notify.createdAt), new Date(), {
@@ -36,24 +40,31 @@ export default function Notifications() {
           }),
         }));
 
-        setCount(data.filter(n => n.read === false).length);
+        setCount(response.data.filter(n => n.read === false).length);
         setNotifications(data);
       } catch (err) {
-        toast.error(err.response.data.error);
+        if (axios.isCancel(err)) {
+        } else {
+          throw toast.error(err.response.data.error);
+        }
       }
     }
     loadNotifications();
-  }, []);
+    return () => {
+      source.cancel();
+    };
+  }, [notifications]);
 
   function handleToggleVisible() {
     setVisible(!visible);
   }
 
   async function handleRead(id) {
-    await api.put(`/notifications/${id}`);
+    await api.put(`notifications/${id}`);
+
     setNotifications(
-      notifications.map(notify =>
-        notify._id === id ? { ...notify, read: true } : notify
+      notifications.map(notification =>
+        notification._id === id ? { ...notification, read: true } : notification
       )
     );
     setCount(notifications.filter(n => n.read === false).length - 1);
