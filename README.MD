@@ -32,6 +32,7 @@ development...<br>
 <p>
   <img src="_images/front1.png" width="315" />
   <img src="_images/front2.png" width="315" />
+  <img src="_images/front3.png" width="315" />
 </p>
 
 
