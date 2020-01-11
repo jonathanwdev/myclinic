@@ -71,13 +71,14 @@ class UserController {
       return res.status(401).json({ error: 'Senha antiga incorreta' });
     }
     await user.update(req.body);
+
     const {
       id,
       name,
-      doctor,
       profession,
       address,
       avatar,
+      doctor,
     } = await User.findByPk(req.userId, {
       include: [
         {
@@ -88,7 +89,26 @@ class UserController {
       ],
     });
 
-    return res.json({ id, name, email, doctor, profession, address, avatar });
+    return res.json({ id, name, email, profession, address, doctor, avatar });
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ error: 'Este usuario não existe mais no sistema' });
+    }
+
+    if (user.id !== req.userId) {
+      return res
+        .status(401)
+        .json({ error: 'Você não tem permiçao para deletar este usuario' });
+    }
+
+    await user.destroy();
+    return res.send();
   }
 }
 

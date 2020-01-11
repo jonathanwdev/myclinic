@@ -38,7 +38,7 @@ class SessionController {
       return res.status(401).json({ error: 'Senha invalida' });
     }
 
-    const { id, name, avatar, doctor } = user;
+    const { id, name, avatar, doctor, address, profession } = user;
 
     return res.json({
       user: {
@@ -47,6 +47,8 @@ class SessionController {
         email,
         avatar,
         doctor,
+        address,
+        profession,
       },
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,

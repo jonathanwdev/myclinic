@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   aside {
@@ -49,5 +50,10 @@ export const Menu = styled.div`
     width: 60px;
     height: 30px;
     border-radius: 4px;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: ${darken(0.04, '#cb3669')};
+    }
   }
 `;

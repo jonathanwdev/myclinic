@@ -1,11 +1,12 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import User from '../models/User';
 import File from '../models/File';
 
 class DoctorController {
   async index(req, res) {
     const doctor = await User.findAll({
-      where: { doctor: true },
+      where: { doctor: true, id: { [Op.ne]: req.userId } },
       attributes: [
         'id',
         'name',

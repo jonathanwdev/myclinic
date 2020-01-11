@@ -15,11 +15,11 @@ import {
 import pt from 'date-fns/locale/pt';
 import { utcToZonedTime } from 'date-fns-tz';
 import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa';
-import { AiOutlineLoading } from 'react-icons/ai';
 import { TiCancel } from 'react-icons/ti';
 import api from '~/services/api';
 
 import { Container, Item, Btn } from './styles';
+import Loading from '~/components/Loading';
 
 const range = [8, 9, 10, 11, 12, 13, 14, 15, 16];
 
@@ -81,7 +81,6 @@ export default function Dashboard() {
     setDate(subDays(date, 1));
   }
 
-  console.tron.log(schedule);
   return (
     <Container>
       <h1>Dashboard</h1>
@@ -95,9 +94,7 @@ export default function Dashboard() {
         </Btn>
       </header>
       {loading ? (
-        <div>
-          <AiOutlineLoading size={30} color="#fff" />
-        </div>
+        <Loading size={30} />
       ) : (
         <ul>
           {schedule.map(sched => (
@@ -125,14 +122,18 @@ export default function Dashboard() {
                   </button>
                 </footer>
               </article>
-              <img
-                src={
-                  sched.appointment && sched.appointment.user.avatar
-                    ? sched.appointment.user.avatar.url
-                    : 'https://api.adorable.io/avatars/50/abott@adorable.png'
-                }
-                alt="profile"
-              />
+              {sched.appointment ? (
+                <img
+                  src={
+                    sched.appointment && sched.appointment.user.avatar
+                      ? sched.appointment.user.avatar.url
+                      : `https://api.adorable.io/avatars/50/${sched.appointment.user.name}.png`
+                  }
+                  alt="profile"
+                />
+              ) : (
+                ''
+              )}
             </Item>
           ))}
         </ul>

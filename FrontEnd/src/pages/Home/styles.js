@@ -15,7 +15,7 @@ export const Background = styled.div`
   width: 100vw;
   height: 100vh;
 `;
-export const Container = styled.div`
+export const Container = styled.main`
   padding: 0 50px;
   display: flex;
   justify-content: space-between;

@@ -22,8 +22,9 @@ routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 
 routes.post('/files', upload.single('file'), FileController.store);
-routes.post('/files/:id', FileController.delete);
+routes.delete('/files/:id', FileController.delete);
 
+routes.delete('/users/:id', UserController.delete);
 routes.put('/users', UserController.update);
 
 routes.post('/doctors', DoctorController.store);

@@ -38,6 +38,7 @@ export const NotificationList = styled.div`
   position: absolute;
   z-index: 1;
   width: 270px;
+  min-height: 100px;
   right: -40px;
   top: calc(100% + 20px);
   background: rgba(0, 0, 0, 0.8);

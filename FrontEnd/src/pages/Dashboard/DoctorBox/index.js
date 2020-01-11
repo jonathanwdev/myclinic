@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Management from './Management';
+import SignUpDoc from './SignUpDoc';
 import Dashboard from './Dashboard';
 import Employees from './Employees';
 
@@ -14,11 +14,11 @@ export default function DoctorBox() {
     },
     {
       component: <Employees />,
-      label: 'Cadastrar funcionários',
+      label: 'Gerenciar Funcionarios',
     },
     {
-      component: <Management />,
-      label: 'Gerenciar funcionários',
+      component: <SignUpDoc />,
+      label: 'Cadastrar funcionários',
     },
   ];
   const [activeOption, setActiveOption] = useState(options[0]);

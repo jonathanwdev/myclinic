@@ -31,6 +31,12 @@ export default function auth(state = INITIAL_STATE, action) {
         break;
       }
 
+      case '@user/DELETE_PROFILE_SUCCESS': {
+        draft.token = null;
+        draft.signed = false;
+        break;
+      }
+
       case '@auth/SIGN_FAILURE': {
         draft.loading = false;
         break;

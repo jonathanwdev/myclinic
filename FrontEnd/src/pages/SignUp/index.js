@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
-import { AiOutlineLoading } from 'react-icons/ai';
 
 import * as Yup from 'yup';
+import Loading from '~/components/Loading';
 import { signUpRequest } from '~/store/modules/auth/actions';
 
 import Logo from '~/assets/logoForm.svg';
@@ -55,7 +55,7 @@ export default function SignUp() {
             placeholder="Confirme sua senha"
           />
           <button type="submit">
-            {loading ? <AiOutlineLoading size={20} color="#fff" /> : 'Logar'}
+            {loading ? <Loading size={20} /> : 'Logar'}
           </button>
           <Link to="/login"> Já tenho uma conta</Link>
         </Form>

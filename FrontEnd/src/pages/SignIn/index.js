@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
-import { AiOutlineLoading } from 'react-icons/ai';
 
 import * as Yup from 'yup';
 import { signInRequest } from '~/store/modules/auth/actions';
 
+import Loading from '~/components/Loading';
 import Logo from '~/assets/logoForm.svg';
 
 import { Container, ContentForm } from './styles';
@@ -39,7 +39,7 @@ export default function SignIn() {
             placeholder="Digite sua senha"
           />
           <button type="submit">
-            {loading ? <AiOutlineLoading size={20} color="#fff" /> : 'Logar'}
+            {loading ? <Loading size={20} /> : 'Logar'}
           </button>
           <Link to="/register"> Crirar conta</Link>
         </Form>

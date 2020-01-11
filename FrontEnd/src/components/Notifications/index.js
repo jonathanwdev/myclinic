@@ -44,6 +44,7 @@ export default function Notifications() {
         setNotifications(data);
       } catch (err) {
         if (axios.isCancel(err)) {
+          toast.error(err);
         } else {
           throw toast.error(err.response.data.error);
         }
@@ -53,7 +54,7 @@ export default function Notifications() {
     return () => {
       source.cancel();
     };
-  }, [notifications]);
+  }, []);
 
   function handleToggleVisible() {
     setVisible(!visible);
