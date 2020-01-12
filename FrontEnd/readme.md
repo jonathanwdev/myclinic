@@ -1,6 +1,6 @@
 <h1>MyClinic Web</h1>
-<p>In this application you can manage you clinic, your schedule, your profile and your employees, also, the clients can use this version. They can create profile, read notifications, create another one and they can manage his account and cancel appointments</p>
-<h3>I did this application with react, redux and redux saga</h3>
+<strong>In this application you can manage you clinic, your schedule, your profile and your employees, also, the clients can use this version. They can create profile, read notifications, create another one and they can manage his account and cancel appointments</strong>
+<h4>I did this application with react, redux and redux saga</h4>
 <br>
 
 <p>
@@ -11,9 +11,10 @@
   <img src="src/assets/readme/5.png" width="315" />
   <img src="src/assets/readme/6.png" width="315" />
   <img src="src/assets/readme/7.png" width="315" />
-</p>
-<p>
   <img src="src/assets/readme/8.png" width="315" />
+</p>
+<hr>
+<p>
   <img src="src/assets/readme/9.png" width="315" />
   <img src="src/assets/readme/10.png" width="315" />
   <img src="src/assets/readme/11.png" width="315" />

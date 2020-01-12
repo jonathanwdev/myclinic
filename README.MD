@@ -28,8 +28,9 @@ Finished!
 <hr>
 
 <h2>Front-end</h2>
-<p>In this application you can manage you clinic, your schedule, your profile and your employees, also, the clients can use this version. They can create profile, read notifications, create another one, they can manage his account and cancel appointments</p>
+<strong>In this application you can manage you clinic, your schedule, your profile and your employees, also, the clients can use this version. They can create profile, read notifications, create another one, they can manage his account and cancel appointments</strong>
 <br>
+<hr>
 <a href="https://github.com/jonathanwdev/myclinic/tree/master/FrontEnd">Read more</a>
 <p>
   <img src="_images/front1.png" width="315" />
