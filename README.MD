@@ -5,8 +5,8 @@
 <ul>
   <li>First step: inside backend's folder, run : "Docker-compose up"  to create containers</li>
   <li>Second step: inside backend's folder,  run: " yarn sequelize db:migrate" to create the table in your database</li>
-  <li>Third step: inside backend's folder run: "yarn sequelize seed:generate --name admin-user"<br>
-  login: admin@admin.com  / pass: 123456
+  <li>Third step: inside backend's folder run: "yarn sequelize db:seed:all "<br>
+  <strong>login: admin@admin.com  / pass: 123456</strong>
   </li>
   <li>Fourth:  " yarn dev " to start the back-end</li>
   <li>Fifth:  " yarn queue " to start the background jobs</li>
@@ -28,7 +28,9 @@ Finished!
 <hr>
 
 <h2>Front-end</h2>
-development...<br>
+<p>In this application you can manage you clinic, your schedule, your profile and your employees, also, the clients can use this version. They can create profile, read notifications, create another one, they can manage his account and cancel appointments</p>
+<br>
+<a href="https://github.com/jonathanwdev/myclinic/tree/master/FrontEnd">Read more</a>
 <p>
   <img src="_images/front1.png" width="315" />
   <img src="_images/front2.png" width="315" />
