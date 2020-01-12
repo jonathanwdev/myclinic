@@ -118,7 +118,7 @@ export default function Dashboard() {
                       )
                     }
                   >
-                    <TiCancel size={15} />
+                    <TiCancel size={15} color="rgba(0,0,0,0.6)" />
                   </button>
                 </footer>
               </article>

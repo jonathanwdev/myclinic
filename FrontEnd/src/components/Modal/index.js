@@ -8,10 +8,12 @@ export default function Modal({
   modalTitle,
   handleHideModal,
   children,
+  bg,
+  borderRadius,
 }) {
   return (
-    <Container display={display}>
-      <Content>
+    <Container display={display ? 1 : 0}>
+      <Content bg={bg} borderRadius={borderRadius}>
         <header>
           <h1>{modalTitle}</h1>
           <button type="button" onClick={handleHideModal}>
@@ -25,12 +27,16 @@ export default function Modal({
 }
 
 Modal.propTypes = {
-  display: PropTypes.bool.isRequired,
+  display: PropTypes.number.isRequired,
   modalTitle: PropTypes.string,
-  handleHideModal: PropTypes.bool.isRequired,
+  handleHideModal: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
+  bg: PropTypes.string,
+  borderRadius: PropTypes.number,
 };
 
 Modal.defaultProps = {
   modalTitle: '',
+  bg: 'none',
+  borderRadius: '0px',
 };

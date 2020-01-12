@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { lighten } from 'polished';
 
 export const Container = styled.div`
   position: absolute;
@@ -17,6 +18,8 @@ export const Content = styled.div`
   height: 450px;
   top: calc(50% - 225px);
   left: calc(50% - 400px);
+  background: ${props => (props.bg ? props.bg : 'none')};
+  border-radius: ${props => (props.borderRadius ? props.borderRadius : 0)};
 
   header {
     display: flex;
@@ -28,11 +31,15 @@ export const Content = styled.div`
     }
 
     button {
-      color: #fff;
+      color: #cb3669;
       background: none;
       width: 70px;
       border: 0;
       font-size: 1.2rem;
+
+      &:hover {
+        color: ${lighten(0.07, '#cb3669')};
+      }
     }
   }
 `;

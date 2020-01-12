@@ -1,5 +1,14 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
+import {
+  startOfHour,
+  parseISO,
+  isBefore,
+  format,
+  subHours,
+  startOfDay,
+  endOfDay,
+} from 'date-fns';
+import { Op } from 'sequelize';
 import pt from 'date-fns/locale/pt';
 import Appointment from '../models/Appointment';
 import User from '../models/User';
@@ -12,12 +21,23 @@ import Queue from '../../lib/Queue';
 class AppointmentController {
   async index(req, res) {
     const { page = 1 } = req.query;
+    const { date } = req.query;
+    if (!date) {
+      return res.status(400).json({ error: 'Data invalida' });
+    }
+    const searchDate = Number(date);
     const appointment = await Appointment.findAll({
-      where: { user_id: req.userId, canceled_at: null },
+      where: {
+        user_id: req.userId,
+        canceled_at: null,
+        date: {
+          [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)],
+        },
+      },
       order: ['date'],
       attributes: ['id', 'date', 'past', 'cancelable'],
-      limit: 20,
-      offset: (page - 1) * 20,
+      limit: 6,
+      offset: (page - 1) * 6,
       include: [
         {
           model: User,

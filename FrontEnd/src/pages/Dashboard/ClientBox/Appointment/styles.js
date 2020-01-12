@@ -77,7 +77,7 @@ export const EmployeeCard = styled.div`
       background: none;
       color: #fff;
       border-radius: 4px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       transition: background 0.2s ease;
     }
 
@@ -91,4 +91,81 @@ export const EmployeeCard = styled.div`
   }
 `;
 
-export const ModalContent = styled.div``;
+export const ModalContent = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  header {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+
+    strong {
+      color: #fff;
+    }
+  }
+`;
+
+export const Btn = styled.button`
+  opacity: ${props => (props.disabled ? 0.4 : 1)};
+`;
+
+export const ModalBody = styled.div`
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+
+  ul {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+  }
+`;
+
+export const AvailableTime = styled.li`
+  display: flex;
+  width: 80%;
+  height: 70px;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  transition: 0.2s ease;
+  background: ${props => (props.enabled ? '#1abbb6' : '#CB3669')};
+  opacity: ${props => (props.enabled ? 1 : 0.4)};
+
+  &:hover {
+    transform: ${props => (props.enabled ? 'translateY(-3px)' : '0')};
+  }
+
+  div {
+    strong {
+      color: #f8f8f8;
+    }
+    p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+  button {
+    background: #36cb4f;
+    color: #f8f8f8;
+    border: 0;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    width: 70px;
+    height: 34px;
+    transition: 0.2s ease;
+    display:${props => (props.enabled ? 'block' : 'none')}
+
+    &:hover {
+      background: ${darken(0.04, '#36cb4f')};
+    }
+  }
+`;

@@ -6,7 +6,9 @@ import {
   setSeconds,
   format,
   isAfter,
+  subHours,
 } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import { Op } from 'sequelize';
 import Appointment from '../models/Appointment';
 
@@ -49,8 +51,10 @@ class AvailableController {
         time,
         value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
         available:
-          isAfter(value, new Date()) &&
-          !appointment.find(a => format(a.date, 'HH:mm') === time),
+          isAfter(value, subHours(new Date(), 1)) &&
+          !appointment.find(
+            a => format(a.date, 'HH:mm', { locale: pt }) === time
+          ),
       };
     });
 
