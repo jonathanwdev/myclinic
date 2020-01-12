@@ -18,8 +18,9 @@ Finished!
 <a href="api">Api MyClinic</a>
 
 <h4>This is an apllication to manage a clinic. Here, i worked with NodeJS + ExpressJS, postgreSQL, MongoDB and Redis<h4>
-<hr>
 <h4>In this application, the user can create an appointment with doctor and cancel, also the doctor can cancel user's appointments sending notifications to them, and more.... <h4><br><br>
+<hr>
+
 <p>
   <img src="_images/back1.png" width="315" />
   <img src="_images/back2.png" width="315" />
@@ -31,7 +32,7 @@ Finished!
 <strong>In this application you can manage you clinic, your schedule, your profile and your employees, also, the clients can use this version. They can create profile, read notifications, create another one, they can manage his account and cancel appointments</strong>
 <br>
 <hr>
-<a href="https://github.com/jonathanwdev/myclinic/tree/master/FrontEnd">Read more</a>
+Front-end MyClinic:<a href="https://github.com/jonathanwdev/myclinic/tree/master/FrontEnd">Read more</a><br>
 <p>
   <img src="_images/front1.png" width="315" />
   <img src="_images/front2.png" width="315" />
