@@ -19,8 +19,9 @@ import {
 } from './styles';
 
 export default function Appointment() {
+  const dateWithSub = subHours(new Date(), 1);
   const [loading, setLoading] = useState(false);
-  const [date, setDate] = useState(subHours(new Date(), 1));
+  const [date, setDate] = useState(dateWithSub);
   const [doctors, setDoctors] = useState([]);
   const [docId, setDocId] = useState(null);
   const [modalShow, setModalShow] = useState(false);

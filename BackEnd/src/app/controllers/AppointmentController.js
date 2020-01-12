@@ -7,6 +7,7 @@ import {
   subHours,
   startOfDay,
   endOfDay,
+  addHours,
 } from 'date-fns';
 import { Op } from 'sequelize';
 import pt from 'date-fns/locale/pt';
@@ -93,7 +94,7 @@ class AppointmentController {
 
     /** Checking past dates */
     const hourStart = startOfHour(parseISO(date));
-    if (isBefore(hourStart, new Date())) {
+    if (isBefore(hourStart, subHours(new Date(), 1))) {
       return res
         .status(400)
         .json({ error: ' Datas passadas não são permitidas' });

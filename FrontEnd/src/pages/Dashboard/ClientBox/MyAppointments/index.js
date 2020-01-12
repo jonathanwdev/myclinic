@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { format, addDays, subDays, parseISO } from 'date-fns';
+import { format, addDays, subDays, parseISO, addHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa';
 
@@ -49,7 +49,7 @@ export default function MyAppointments() {
         const data = response.data.map(appoin => ({
           ...appoin,
           dateWithTime: format(
-            parseISO(appoin.date),
+            addHours(parseISO(appoin.date), 1),
             "'Dia 'dd 'de' MMMM ' às 'HH'h'",
             {
               locale: pt,
