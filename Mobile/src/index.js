@@ -1,7 +1,18 @@
 import React from 'react';
-import { Text } from 'react-native';
-// import { Container } from './styles';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
 
-export default function src() {
-  return <Text>Hello Las Noches</Text>;
+import './config/reactotronConfig';
+import App from './App';
+
+import { store, persistor } from './store';
+
+export default function Index() {
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  );
 }
