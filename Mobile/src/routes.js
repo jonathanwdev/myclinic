@@ -13,6 +13,7 @@ import Profile from '~/pages/Profile';
 /** Routes for Doctors */
 import DocDashboard from '~/pages/DocDashboard';
 import Employees from '~/pages/Employees';
+import RegisterEmployee from '~/pages/RegisterEmployee';
 
 /** Routes for Clients */
 import ClientDashboard from '~/pages/ClientDashboard';
@@ -30,6 +31,7 @@ export default (signedIn = false, isDoctor) =>
             Employees: {
               screen: createStackNavigator({
                 Employees,
+                RegisterEmployee,
               }),
               navigationOptions: {
                 tabBarLabel: 'Meus Funcionarios',

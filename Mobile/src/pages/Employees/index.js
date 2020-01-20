@@ -1,15 +1,101 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Alert, Text } from 'react-native';
+import api from '~/services/api';
 
 import HeaderLogo from '~/components/HeaderLogo';
 import Background from '~/components/Background';
 
-// import { Container } from './styles';
+import {
+  Container,
+  DoctorsList,
+  Doctor,
+  Info,
+  Name,
+  AboutDoc,
+  Profession,
+  FiredButton,
+  Avatar,
+  RegisterButton,
+} from './styles';
 
-export default function Employees() {
+export default function Employees({ navigation }) {
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    async function loadDocstors() {
+      try {
+        const response = await api.get('doctors');
+        setDoctors(response.data);
+      } catch (err) {
+        Alert.alert('Erro', err.response.data.error);
+      }
+    }
+    loadDocstors();
+  }, []);
+
+  async function handleFireDoctor(id) {
+    try {
+      await api.delete(`doctors/${id}`);
+      const refreshList = doctors.filter(doc => doc.id !== id);
+      setDoctors(refreshList);
+      Alert.alert('Sucesso!', 'Funcionario demitido com sucesso !');
+    } catch (err) {
+      Alert.alert('Erro', err.response.data.error);
+    }
+  }
+
   return (
     <Background>
-      <Text>MEUS Escravos</Text>
+      <Container>
+        <DoctorsList
+          data={doctors}
+          keyExtractor={doctor => String(doctor.id)}
+          renderItem={({ item: doctor }) => (
+            <Doctor>
+              <Info>
+                <Name>Dr.(a) {doctor.name}</Name>
+                <AboutDoc>
+                  <Profession>#{doctor.profession}</Profession>
+                  <FiredButton
+                    onPress={() =>
+                      Alert.alert(
+                        'Demitir',
+                        `Você deseja mesmo demitir o(a) ${doctor.name} ?`,
+                        [
+                          {
+                            text: 'SIM',
+                            onPress: () => handleFireDoctor(doctor.id),
+                            style: 'destructive',
+                          },
+                          {
+                            text: 'NÃO',
+                          },
+                        ]
+                      )
+                    }
+                  >
+                    <Text style={{ color: '#CB3669' }}>DEMITIR</Text>
+                  </FiredButton>
+                </AboutDoc>
+              </Info>
+              <Avatar
+                source={{
+                  uri: doctor.avatar
+                    ? doctor.avatar.url
+                    : `https://api.adorable.io/avatars/50/${doctor.name}.png`,
+                }}
+              />
+            </Doctor>
+          )}
+        />
+        <RegisterButton
+          onPress={() => {
+            navigation.navigate('RegisterEmployee');
+          }}
+        >
+          Cadastrar funcionario
+        </RegisterButton>
+      </Container>
     </Background>
   );
 }
