@@ -26,7 +26,7 @@ export default (signedIn = false, isDoctor) =>
           SignIn,
           SignUp,
         }),
-        DocApp: createBottomTabNavigator(
+        DoctorApp: createBottomTabNavigator(
           {
             Employees: {
               screen: createStackNavigator({
@@ -77,10 +77,31 @@ export default (signedIn = false, isDoctor) =>
         ),
         ClientApp: createBottomTabNavigator(
           {
-            ClientDashboard,
-            Profile,
+            ClientDashboard: {
+              screen: createStackNavigator({
+                ClientDashboard,
+              }),
+              navigationOptions: {
+                tabBarLabel: 'Meus agendamentos',
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="event-available" size={20} color={tintColor} />
+                ),
+              },
+            },
+            Profile: {
+              screen: createStackNavigator({
+                Profile,
+              }),
+              navigationOptions: {
+                tabBarLabel: 'Meu Perfil',
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="person-pin" size={20} color={tintColor} />
+                ),
+              },
+            },
           },
           {
+            resetOnBlur: true,
             tabBarOptions: {
               keyboardHidesTabBar: true,
               activeTintColor: '#00FF2B',
@@ -95,7 +116,7 @@ export default (signedIn = false, isDoctor) =>
       {
         initialRouteName:
           signedIn && isDoctor
-            ? 'DocApp'
+            ? 'DoctorApp'
             : signedIn && !isDoctor
             ? 'ClientApp'
             : 'Sign',

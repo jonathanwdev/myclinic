@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect, useMemo } from 'react';
 import { Alert, StatusBar } from 'react-native';
 import { format, addDays, subDays, parseISO } from 'date-fns';
@@ -8,14 +9,15 @@ import api from '~/services/api';
 
 import HeaderLogo from '~/components/HeaderLogo';
 import Background from '~/components/Background';
+import { TextLoading, Loading } from '~/components/Loading';
 
 import {
   Container,
-  DateControl,
-  DateButton,
-  DateText,
   ScheduleList,
   Scheduled,
+  DateControl,
+  DateText,
+  DateButton,
   Avatar,
   ClientName,
   Time,
@@ -24,6 +26,7 @@ import {
 
 export default function DocDashboard() {
   const [date, setDate] = useState(new Date());
+  const [loading, setLoading] = useState(false);
   const [schedules, setSchedules] = useState([]);
 
   const formattedDate = useMemo(
@@ -41,6 +44,7 @@ export default function DocDashboard() {
   useEffect(() => {
     async function loadSchedule() {
       try {
+        setLoading(true);
         const response = await api.get('schedule', {
           params: {
             date,
@@ -52,6 +56,7 @@ export default function DocDashboard() {
             locale: pt,
           }),
         }));
+        setLoading(false);
         setSchedules(data);
       } catch (err) {
         Alert.alert('Erro', err.response.data.error);
@@ -84,41 +89,49 @@ export default function DocDashboard() {
             <Icon name="chevron-right" size={30} color="#36CB4F" />
           </DateButton>
         </DateControl>
-        <ScheduleList
-          data={schedules}
-          keyExtractor={schedule => String(schedule.id)}
-          renderItem={({ item: schedule }) => (
-            <Scheduled past={schedule.past}>
-              <Avatar
-                source={{
-                  uri: schedule.user.avatar
-                    ? schedule.user.avatar.url
-                    : `https://api.adorable.io/avatars/50/${schedule.user.name}.png`,
-                }}
-              />
-              <ClientName>{schedule.user.name}</ClientName>
-              <Time>{schedule.formattedTime}</Time>
-              <CalcelButton
-                cancelable={!schedule.cancelable}
-                onPress={() =>
-                  Alert.alert('Cancelarmento', 'Tem certeza disso ?', [
-                    {
-                      text: 'SIM',
-                      onPress: () => cancelSchedule(schedule.id),
-                      style: 'cancel',
-                    },
-                    {
-                      text: 'NÃO',
-                      onPress: () => {},
-                    },
-                  ])
-                }
-              >
-                <Icon name="cancel" size={25} color="#CB3669" />
-              </CalcelButton>
-            </Scheduled>
-          )}
-        />
+        {loading ? (
+          <Loading size="small" color="#fff" />
+        ) : schedules.length > 0 ? (
+          <ScheduleList
+            data={schedules}
+            keyExtractor={schedule => String(schedule.id)}
+            renderItem={({ item: schedule }) => (
+              <Scheduled past={schedule.past}>
+                <Avatar
+                  source={{
+                    uri: schedule.user.avatar
+                      ? schedule.user.avatar.url
+                      : `https://api.adorable.io/avatars/50/${schedule.user.name}.png`,
+                  }}
+                />
+                <ClientName>{schedule.user.name}</ClientName>
+                <Time>{schedule.formattedTime}</Time>
+                <CalcelButton
+                  cancelable={!schedule.cancelable}
+                  onPress={() =>
+                    Alert.alert('Cancelarmento', 'Tem certeza disso ?', [
+                      {
+                        text: 'SIM',
+                        onPress: () => cancelSchedule(schedule.id),
+                        style: 'cancel',
+                      },
+                      {
+                        text: 'NÃO',
+                        onPress: () => {},
+                      },
+                    ])
+                  }
+                >
+                  <Icon name="cancel" size={25} color="#CB3669" />
+                </CalcelButton>
+              </Scheduled>
+            )}
+          />
+        ) : (
+          <TextLoading color="#fff">
+            Não há agendamentos para esta data
+          </TextLoading>
+        )}
       </Container>
     </Background>
   );
