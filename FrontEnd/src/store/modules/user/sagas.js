@@ -29,12 +29,11 @@ export function* updateProfile({ payload }) {
   }
 }
 
-export function* deleteProfile({ payload }) {
+export function* deleteProfile() {
   try {
-    const { id } = payload;
-    yield call(api.delete, `users/${id}`);
-    yield put(deleteProfileSuccess());
     history.push('/');
+    yield put(deleteProfileSuccess());
+    yield call(api.delete, 'users');
     toast.error('Adeusss :(');
   } catch (err) {
     toast.error(err.response.data.error);

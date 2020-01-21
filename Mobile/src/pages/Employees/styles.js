@@ -14,7 +14,6 @@ export const DoctorsList = styled.FlatList.attrs({
 
 export const Doctor = styled.View`
   flex-direction: row;
-  flex: 1;
   border: 2px solid #1abbb6;
   padding: 15px;
   background: #f5f5f5;

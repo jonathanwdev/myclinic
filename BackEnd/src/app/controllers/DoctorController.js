@@ -71,50 +71,6 @@ class DoctorController {
     return res.json({ id, name, email, address, doctor, profession });
   }
 
-  async update(req, res) {
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      address: Yup.string(),
-      profession: Yup.string().required(),
-    });
-    if (!(await schema.isValid(req.body))) {
-      return res
-        .status(400)
-        .json({ error: 'Erro na validação, confira todos os campos' });
-    }
-
-    const { email } = req.body;
-    const oldDoctor = await User.findOne({ where: { id: req.params.id } });
-    if (!oldDoctor) {
-      return res.status(404).json({ error: 'Este usuario não existe' });
-    }
-
-    if (email !== oldDoctor.email) {
-      const userExists = await User.findOne({ where: { email } });
-      if (userExists) {
-        return res
-          .status(400)
-          .json({ error: 'Email já cadastrado por outro usuario' });
-      }
-    }
-
-    const { id, name, doctor, address, profession } = await oldDoctor.update(
-      req.body
-    );
-
-    return res.json({
-      id,
-      name,
-      email,
-      doctor,
-      address,
-      profession,
-    });
-  }
-
   async delete(req, res) {
     const doctor = await User.findOne({ where: { id: req.params.id } });
     if (!doctor) {

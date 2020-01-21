@@ -12,10 +12,9 @@ export function updateProfileSuccess(profile) {
   };
 }
 
-export function deleteProfileRequest(id) {
+export function deleteProfileRequest() {
   return {
     type: '@user/DELETE_PROFILE_REQUEST',
-    payload: { id },
   };
 }
 

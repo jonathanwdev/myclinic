@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { withNavigationFocus } from 'react-navigation';
 import { Alert, Text } from 'react-native';
 import api from '~/services/api';
 
@@ -18,20 +20,23 @@ import {
   RegisterButton,
 } from './styles';
 
-export default function Employees({ navigation }) {
+function Employees({ navigation, isFocused }) {
   const [doctors, setDoctors] = useState([]);
 
-  useEffect(() => {
-    async function loadDocstors() {
-      try {
-        const response = await api.get('doctors');
-        setDoctors(response.data);
-      } catch (err) {
-        Alert.alert('Erro', err.response.data.error);
-      }
+  async function loadDocstors() {
+    try {
+      const response = await api.get('doctors');
+      setDoctors(response.data);
+    } catch (err) {
+      Alert.alert('Erro', err.response.data.error);
     }
-    loadDocstors();
-  }, []);
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      loadDocstors();
+    }
+  }, [isFocused]);
 
   async function handleFireDoctor(id) {
     try {
@@ -108,3 +113,11 @@ Employees.navigationOptions = {
   },
   headerTitleAlign: 'center',
 };
+
+Employees.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default withNavigationFocus(Employees);

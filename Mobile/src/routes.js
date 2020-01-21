@@ -64,6 +64,7 @@ export default (signedIn = false, isDoctor) =>
             },
           },
           {
+            resetOnBlur: true,
             tabBarOptions: {
               keyboardHidesTabBar: true,
               activeTintColor: '#00FF2B',

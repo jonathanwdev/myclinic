@@ -20,11 +20,11 @@ export default function Profile() {
     dispatch(updateProfileRequest(data));
   }
 
-  function handleDeleteUser(id) {
+  function handleDeleteUser() {
     if (
       window.confirm(`Tem certeza que deseja excluir sua conta ${user.name} ??`)
     ) {
-      dispatch(deleteProfileRequest(id));
+      dispatch(deleteProfileRequest());
     }
   }
   return (
@@ -87,7 +87,7 @@ export default function Profile() {
             <button type="submit">
               {loading ? <Loading size={20} /> : 'Atualizar dados'}
             </button>
-            <button type="button" onClick={() => handleDeleteUser(user.id)}>
+            <button type="button" onClick={() => handleDeleteUser()}>
               Excluir minha conta
             </button>
           </footer>

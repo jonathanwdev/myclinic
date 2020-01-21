@@ -93,8 +93,7 @@ class UserController {
   }
 
   async delete(req, res) {
-    const { id } = req.params;
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(req.userId);
     if (!user) {
       return res
         .status(404)
