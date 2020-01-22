@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 import AvatarInput from '~/components/AvatarInput';
 
 import Loading from '~/components/Loading';
@@ -10,6 +11,31 @@ import {
 } from '~/store/modules/user/actions';
 
 import { Container, FormGrid } from './styles';
+
+const schema = Yup.object().shape({
+  name: Yup.string()
+    .required('O email é obrigatorio')
+    .min(6, 'No minimo 6 caracteres'),
+  email: Yup.string()
+    .email('Insira um email valido')
+    .required('O email é obrigatorio'),
+  avatar_id: Yup.number(),
+  address: Yup.string().min(6, 'No minimo 6 caracteres'),
+  profession: Yup.string().min(6, 'No minimo 6 caracteres'),
+  oldPassword: Yup.string(),
+  password: Yup.string().when('oldPassword', (oldPassword, field) =>
+    oldPassword
+      ? field.required('Campo obrigatorio').min(6, 'Minimo 6 caracteres')
+      : field
+  ),
+  confirmPassword: Yup.string().when('password', (password, field) =>
+    password
+      ? field
+          .required()
+          .oneOf([Yup.ref('password')], 'As senhas devem ser iguais')
+      : field
+  ),
+});
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -31,7 +57,7 @@ export default function Profile() {
     <Container>
       <h1>Meu Perfil</h1>
       <section>
-        <Form initialData={user} onSubmit={handleSubmit}>
+        <Form schema={schema} initialData={user} onSubmit={handleSubmit}>
           <AvatarInput name="avatar_id" />
 
           <FormGrid>

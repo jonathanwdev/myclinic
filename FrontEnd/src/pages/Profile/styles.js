@@ -90,7 +90,7 @@ export const FormGrid = styled.div`
       }
     }
     span {
-      color: #f64c75;
+      color: #fff;
       align-self: flex-start;
     }
   }

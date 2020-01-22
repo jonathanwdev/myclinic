@@ -17,6 +17,9 @@ import RegisterEmployee from '~/pages/RegisterEmployee';
 
 /** Routes for Clients */
 import ClientDashboard from '~/pages/ClientDashboard';
+import SelectDoctor from '~/pages/CreateAppointment/SelectDoctor';
+import SelectDateTime from '~/pages/CreateAppointment/SelectDateTime';
+import Confirm from '~/pages/CreateAppointment/Confirm';
 
 export default (signedIn = false, isDoctor) =>
   createAppContainer(
@@ -85,6 +88,20 @@ export default (signedIn = false, isDoctor) =>
                 tabBarLabel: 'Meus agendamentos',
                 tabBarIcon: ({ tintColor }) => (
                   <Icon name="event-available" size={20} color={tintColor} />
+                ),
+              },
+            },
+            CreateAppointment: {
+              screen: createStackNavigator({
+                SelectDoctor,
+                SelectDateTime,
+                Confirm,
+              }),
+              navigationOptions: {
+                tabBarVisible: false,
+                tabBarLabel: 'AGENDAR',
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="schedule" size={20} color={tintColor} />
                 ),
               },
             },

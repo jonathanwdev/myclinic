@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useField } from '@rocketseat/unform';
+import { useSelector } from 'react-redux';
 import api from '~/services/api';
 
 import { Container } from './styles';
 
 export default function AvatarInput() {
-  const { defaultValue, registerField } = useField('avatar');
-
+  const { fieldName, defaultValue, registerField } = useField('avatar');
+  const profile = useSelector(state => state.user.profile);
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
@@ -21,7 +22,7 @@ export default function AvatarInput() {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref.current]);
+  }, [ref.current, fieldName]);
 
   async function handleChange(e) {
     const data = new FormData();

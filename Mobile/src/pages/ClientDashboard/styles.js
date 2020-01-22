@@ -73,6 +73,6 @@ export const Avatar = styled.Image`
   border-radius: 30px;
 `;
 export const CancellationButton = styled(Button)`
-  background: ${props => (props.cancelable ? '#cb3669' : 'rgba(0,0,0,0.4)')};
+  background: ${props => (props.enabled ? '#cb3669' : 'rgba(0,0,0,0.4)')};
   display: ${props => (props.past ? 'none' : 'flex')};
 `;

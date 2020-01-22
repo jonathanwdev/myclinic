@@ -16,7 +16,7 @@ export const DateButton = styled.TouchableOpacity`
 
 export const DateText = styled.Text`
   font-size: 14px;
-  color: #fff;
+  color: #00ff2b;
   margin-left: 15px;
 `;
 

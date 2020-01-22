@@ -1,7 +1,16 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect, useMemo } from 'react';
 import { Alert, StatusBar } from 'react-native';
-import { format, addDays, subDays, parseISO } from 'date-fns';
+import { withNavigationFocus } from 'react-navigation';
+
+import {
+  format,
+  addDays,
+  subDays,
+  parseISO,
+  addHours,
+  subHours,
+} from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -27,7 +36,7 @@ import {
   CancellationButton,
 } from './styles';
 
-export default function ClientDashboard() {
+function ClientDashboard({ isFocused }) {
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(false);
   const [appointmens, setAppointmens] = useState([]);
@@ -36,33 +45,37 @@ export default function ClientDashboard() {
     [date]
   );
 
-  useEffect(() => {
-    async function loadAppointments() {
-      try {
-        setLoading(true);
-        const response = await api.get('appointments', {
-          params: {
-            date: date.getTime(),
-          },
-        });
-        const data = response.data.map(appointment => ({
-          ...appointment,
-          formattedTime: format(
-            parseISO(appointment.date),
-            "'Dia' dd' de 'MMMM' de 'yyyy' ás 'HH'h'",
-            {
-              locale: pt,
-            }
-          ),
-        }));
-        setLoading(false);
-        setAppointmens(data);
-      } catch (err) {
-        Alert.alert(err.response.data.error);
-      }
+  async function loadAppointments() {
+    try {
+      setLoading(true);
+      const response = await api.get('appointments', {
+        params: {
+          date: date.getTime(),
+        },
+      });
+      const data = response.data.map(appointment => ({
+        ...appointment,
+        formattedTime: format(
+          addHours(parseISO(appointment.date), 1),
+          "'Dia' dd' de 'MMMM' de 'yyyy' ás 'HH'h'",
+          {
+            locale: pt,
+          }
+        ),
+      }));
+      setLoading(false);
+      setAppointmens(data);
+    } catch (err) {
+      Alert.alert(err.response.data.error);
     }
-    loadAppointments();
-  }, [date]);
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      loadAppointments();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date, isFocused]);
 
   function handleAddDay() {
     setDate(addDays(date, 1));
@@ -118,7 +131,7 @@ export default function ClientDashboard() {
                 </Profile>
                 <CancellationButton
                   past={appointment.past}
-                  cancelable={appointment.cancelable}
+                  enabled={appointment.cancelable}
                   onPress={() =>
                     appointment.cancelable
                       ? Alert.alert('Cancelamento', 'Tem certeza disso ?', [
@@ -158,3 +171,5 @@ ClientDashboard.navigationOptions = {
   },
   headerTitleAlign: 'center',
 };
+
+export default withNavigationFocus(ClientDashboard);

@@ -124,6 +124,9 @@ RegisterEmployee.navigationOptions = ({ navigation }) => ({
   headerTintColor: '#00FF2B',
   headerTitleStyle: 'bold',
   headerTitleAlign: 'center',
+  headerLeftContainerStyle: {
+    marginLeft: 20,
+  },
 });
 
 RegisterEmployee.propTypes = {
