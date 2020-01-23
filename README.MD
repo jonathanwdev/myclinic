@@ -29,10 +29,10 @@ Finished!
 <hr>
 
 <h2>Front-end</h2>
-<strong>In this application you can manage you clinic, your schedule, your profile and your employees, also, the clients can use this version. They can create profile, read notifications, create another one, they can manage his account and cancel appointments</strong>
+<strong>In this application you can manage your clinic, your schedule, your profile and your employees,  the clients can use this version too. They can create profile, read notifications,  they can manage his account and cancel appointments</strong>
 <br>
 <hr>
-Front-end MyClinic:<a href="https://github.com/jonathanwdev/myclinic/tree/master/FrontEnd">Read more</a><br>
+Front-end MyClinic: <a href="https://github.com/jonathanwdev/myclinic/tree/master/FrontEnd">Read more</a><br>
 <p>
   <img src="_images/front1.png" width="315" />
   <img src="_images/front2.png" width="315" />
@@ -42,9 +42,15 @@ Front-end MyClinic:<a href="https://github.com/jonathanwdev/myclinic/tree/master
 
 
 <hr>
-
 <h2>Mobile</h2>
-Development
+<strong>In this application you can manage your clinic, your schedule, your profile and your employees, the clients can use this version too. They can create profile, they can manage his account and cancel appointments</strong>
+<br>
+<hr>
+MyClinic Mobile: <a href="https://github.com/jonathanwdev/myclinic/tree/master/Mobile"> Read more </a><br>
+<p>
+  <img src="_images/1.png" width="215" />
+  <img src="_images/2.png" width="215" />
+</p>
 
 
 
