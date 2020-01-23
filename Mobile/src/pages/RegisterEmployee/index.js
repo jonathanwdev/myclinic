@@ -97,10 +97,10 @@ export default function RegisterEmployee({ navigation }) {
             onSubmitEditing={handleSubmit}
             returnKeyType="send"
           />
+          <SubmitButton loading={loading} onPress={handleSubmit}>
+            CONFIRMAR CADASTRO
+          </SubmitButton>
         </Form>
-        <SubmitButton loading={loading} onPress={handleSubmit}>
-          CONFIRMAR CADASTRO
-        </SubmitButton>
       </Container>
     </Background>
   );

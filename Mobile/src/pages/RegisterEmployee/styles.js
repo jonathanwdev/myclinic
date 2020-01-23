@@ -12,7 +12,10 @@ export const Container = styled.KeyboardAvoidingView.attrs({
   justify-content: space-around;
   align-items: center;
 `;
-export const Form = styled.View`
+export const Form = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+})`
+  margin-top: 40px;
   align-self: stretch;
 `;
 export const TextInput = styled(Input)`
