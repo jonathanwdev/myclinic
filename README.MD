@@ -10,8 +10,11 @@
   </li>
   <li>Fourth:  " yarn dev " to start the back-end</li>
   <li>Fifth:  " yarn queue " to start the background jobs</li>
+  <li>Sixth: inside Front-end's folder: " yarn start "</li>
+  <li>Seventh:  inside Mobile's folder : " react-native run-android "</li>
+  <li>Eighth: inside Mobile's folder :" react-native start "</li>
   <li> You can also use <strong>NPM</strong></li>
-</ul>
+</ul><br>
 
 <h2>Backend: </h2>
 Finished! 
