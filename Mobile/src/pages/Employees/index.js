@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withNavigationFocus } from 'react-navigation';
-import { Alert, Text } from 'react-native';
+import { Alert, Text, StatusBar } from 'react-native';
 import api from '~/services/api';
 
 import HeaderLogo from '~/components/HeaderLogo';
@@ -51,6 +51,7 @@ function Employees({ navigation, isFocused }) {
 
   return (
     <Background>
+      <StatusBar barStyle="light-content" backgroundColor="#08264A" />
       <Container>
         <DoctorsList
           data={doctors}

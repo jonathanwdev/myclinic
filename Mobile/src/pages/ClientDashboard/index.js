@@ -3,14 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Alert, StatusBar } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 
-import {
-  format,
-  addDays,
-  subDays,
-  parseISO,
-  addHours,
-  subHours,
-} from 'date-fns';
+import { format, addDays, subDays, parseISO, addHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -56,7 +49,7 @@ function ClientDashboard({ isFocused }) {
       const data = response.data.map(appointment => ({
         ...appointment,
         formattedTime: format(
-          addHours(parseISO(appointment.date), 1),
+          addHours(parseISO(appointment.date), 1.2),
           "'Dia' dd' de 'MMMM' de 'yyyy' ás 'HH'h'",
           {
             locale: pt,
