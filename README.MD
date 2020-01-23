@@ -1,5 +1,5 @@
 <h1>>> MyClinic <<</h1>
-
+<i>That's my best and my favorite project, because here i did absolutely everything "including the disign", i just took a look in dribble to get an inspiration to do only my home screen, then i did everything</i>
 
 <i>Instructions</i>
 <ul>
