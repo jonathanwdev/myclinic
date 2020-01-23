@@ -1,7 +1,7 @@
 <h1>>> MyClinic <<</h1>
 <i>That's my best and my favorite project, because here i did absolutely everything "including the disign", i just took a look in dribble to get an inspiration to do only my home screen, then i did everything.</i><br><br>
 
-<i><strong>Instructions:</strong</i>
+<i><strong>Instructions:</strong></i>
 <ul>
   <li>First step: inside backend's folder, run : "Docker-compose up"  to create containers</li>
   <li>Second step: inside backend's folder,  run: " yarn sequelize db:migrate" to create the table in your database</li>
