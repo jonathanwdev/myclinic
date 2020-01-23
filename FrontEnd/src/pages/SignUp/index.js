@@ -55,7 +55,7 @@ export default function SignUp() {
             placeholder="Confirme sua senha"
           />
           <button type="submit">
-            {loading ? <Loading size={20} /> : 'Logar'}
+            {loading ? <Loading size={20} /> : 'CADASTRAR'}
           </button>
           <Link to="/login"> Já tenho uma conta</Link>
         </Form>

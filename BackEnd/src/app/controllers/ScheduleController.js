@@ -104,10 +104,16 @@ class ScheduleController {
       }
     );
 
-    await Notification.create({
+    const notification = await Notification.create({
       content: `Seu agendamento com o(a) Dr(a) ${appointments.doctor.name}, para o dia ${formattedDate}, foi cancelado`,
       user: appointments.user_id,
     });
+
+    const ownerSocket = req.connectedUsers[appointments.user_id];
+
+    if (ownerSocket) {
+      req.io.to(ownerSocket).emit('notification', notification);
+    }
 
     return res.json(appointments);
   }

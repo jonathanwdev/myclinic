@@ -21,14 +21,16 @@ export const Badge = styled.button`
     css`
       &::after {
         position: absolute;
-        right: -3px;
+        right: -7px;
         top: -4px;
-        width: 15px;
-        height: 15px;
+        width: 18px;
+        height: 18px;
         background: #9bd527;
-        content: '${props => (props.count ? props.count : '')}';
+        content: '${props =>
+          props.count > 99 ? '99+' : props.count < 99 ? props.count : ''}';
         color: #08264a;
         font-size: 10px;
+        line-height:18px;
         border-radius: 50%;
       }
     `};

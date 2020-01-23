@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { parseISO, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { IoIosNotifications, IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import socketio from 'socket.io-client';
 
 import api from '~/services/api';
 
@@ -18,12 +20,31 @@ import {
 export default function Notifications() {
   const [visible, setVisible] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState();
 
   const hasUnread = useMemo(
     () => !!notifications.find(notify => notify.read === false),
     [notifications]
   );
+
+  const user = useSelector(state => state.user.profile);
+
+  const socket = useMemo(
+    () =>
+      socketio('http://192.168.0.12:3333', {
+        query: {
+          user_id: user.id,
+        },
+      }),
+    [user.id]
+  );
+
+  useEffect(() => {
+    socket.on('notification', notification => {
+      setNotifications([notification, ...notifications]);
+      setCount(count + 1);
+    });
+  }, [socket, notifications, count]);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
