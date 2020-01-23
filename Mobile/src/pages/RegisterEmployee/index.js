@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, Alert } from 'react-native';
+import { TouchableOpacity, Alert, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '~/services/api';
 
@@ -41,6 +41,7 @@ export default function RegisterEmployee({ navigation }) {
 
   return (
     <Background>
+      <StatusBar barStyle="light-content" backgroundColor="#08264A" />
       <Container>
         <Form>
           <TextInput
